@@ -1,0 +1,16 @@
+[build-system]
+requires = ["flit_core >=2,<3"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "flake8_implicit_str_concat"
+author = "Dylan Turner"
+author-email = "58230987+keisheiled@users.noreply.github.com"
+home-page = "https://github.com/keisheiled/flake8-implicit-str-concat"
+classifiers = ["License :: OSI Approved :: MIT License"]
+requires-python = "~=3.6"
+requires = ["attrs ~= 19.3"]
+
+
+[tool.flit.entrypoints."flake8.extension"]
+implicit-str-concat = "flake8_implicit_str_concat:Checker"
