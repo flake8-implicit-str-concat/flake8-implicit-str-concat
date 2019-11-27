@@ -16,7 +16,7 @@ __version__ = "0.0.0.post0"
 
 _ERROR = Tuple[int, int, str, None]
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def pairwise(iterable: Iterable[T]) -> Iterable[Tuple[T, T]]:
