@@ -28,7 +28,7 @@ All done! ✨ 🍰 ✨
 $ cat example.py
 s = "111111111111111111111" "222222222222222222222"
 $ flake8 example.py
-example.py:1:28: implicit-str-concat implicitly concatenated string literals on one line
+example.py:1:28: implicit-str-concat-oneline implicitly concatenated string literals on one line
 $ edit example.py # Remove the " " and save
 $ cat example.py
 s = "111111111111111111111222222222222222222222"
