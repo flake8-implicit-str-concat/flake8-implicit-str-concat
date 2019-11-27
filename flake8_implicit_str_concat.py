@@ -1,6 +1,6 @@
 """
 Forbid implicitly concatenated string literals on one line such as those
-introduced by black
+introduced by Black
 """
 
 from __future__ import generator_stop
@@ -16,7 +16,7 @@ __version__ = "0.0.0.post0"
 
 _ERROR = Tuple[int, int, str, None]
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def pairwise(iterable: Iterable[T]) -> Iterable[Tuple[T, T]]:
