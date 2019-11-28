@@ -33,9 +33,9 @@ def _implicit(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
     return (
         (
             *a.end,
-            "ISC002 implicitly concatenated string literals over continuation line"
+            "ISC001 implicitly concatenated string literals on one line"
             if a.end[0] == b.start[0]
-            else "ISC001 implicitly concatenated string literals on one line",
+            else "ISC002 implicitly concatenated string literals over continuation line",
             None,
         )
         for (a, b) in pairwise(file_tokens)
