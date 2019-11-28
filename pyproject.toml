@@ -13,4 +13,4 @@ requires = ["attrs ~= 19.3"]
 
 
 [tool.flit.entrypoints."flake8.extension"]
-implicit-str-concat = "flake8_implicit_str_concat:Checker"
+ISC = "flake8_implicit_str_concat:Checker"
