@@ -1,10 +1,12 @@
 """
 Forbid implicitly concatenated string literals on one line such as those
-introduced by Black
+introduced by Black.
+Forbid all explicitly concatenated strings.
 """
 
 from __future__ import generator_stop
 
+import ast
 import itertools
 import tokenize
 from typing import Iterable, List, Tuple, TypeVar
@@ -25,7 +27,7 @@ def pairwise(iterable: Iterable[T]) -> Iterable[Tuple[T, T]]:
     return zip(a, b)
 
 
-def _run(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
+def _implicit(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
     return (
         (
             *a.end,
@@ -39,12 +41,31 @@ def _run(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
     )
 
 
+def _explicit(root_node: ast.AST) -> Iterable[_ERROR]:
+    return (
+        (
+            node.lineno,
+            node.col_offset,
+            "ISC003 explicitly concatenated string should be implicitly concatenated",
+            None,
+        )
+        for node in ast.walk(root_node)
+        if isinstance(node, ast.BinOp)
+        and isinstance(node.op, ast.Add)
+        and all(
+            isinstance(operand, (ast.Str, ast.Bytes, ast.JoinedStr))
+            for operand in [node.left, node.right]
+        )
+    )
+
+
 @attr.s(frozen=True, auto_attribs=True)
 class Checker:
     name = __name__
     version = __version__
-    tree: object
+    tree: ast.AST
     file_tokens: List[tokenize.TokenInfo]
 
     def run(self) -> Iterable[_ERROR]:
-        return _run(self.file_tokens)
+        yield from _implicit(self.file_tokens)
+        yield from _explicit(self.tree)
