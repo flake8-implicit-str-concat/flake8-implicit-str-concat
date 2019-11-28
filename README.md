@@ -6,8 +6,13 @@
 [![GitHub](https://img.shields.io/github/license/keisheiled/flake8-implicit-str-concat.svg)](LICENSE)
 [![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Forbid implicitly concatenated string literals on one line such as those
-introduced by [Black](https://github.com/psf/black/issues/26).
+This is a plugin for the Python code checking tool [Flake8](http://flake8.pycqa.org/)
+to encourage correct string literal concatenation.
+
+It looks for style problems like implicitly concatenated string literals on
+the same line (which can be introduced by the code formating tool
+[Black](https://github.com/psf/black/issues/26)),
+or unnecessary plus operators for explicit string literal concatenation.
 
 ## Install
 
@@ -38,3 +43,13 @@ All done! ✨ 🍰 ✨
 $ flake8 example.py
 $
 ```
+
+## Violation codes
+
+The plugin uses the prefix ``ISC``, short for Implicit String Concatenation.
+
+| Code   | Description                                                      |
+|--------|------------------------------------------------------------------|
+| ISC001 | implicitly concatenated string literals on one line              |
+| ISC002 | implicitly concatenated string literals over continuation line   |
+| ISC003 | explicitly concatenated string should be implicitly concatenated |
