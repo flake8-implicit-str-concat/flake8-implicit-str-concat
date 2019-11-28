@@ -4,10 +4,26 @@ build-backend = "flit_core.buildapi"
 
 [tool.flit.metadata]
 module = "flake8_implicit_str_concat"
+description-file = "README.md"
 author = "Dylan Turner"
 author-email = "58230987+keisheiled@users.noreply.github.com"
 home-page = "https://github.com/keisheiled/flake8-implicit-str-concat"
-classifiers = ["License :: OSI Approved :: MIT License"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Framework :: Flake8",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
 requires-python = "~=3.6"
 requires = ["attrs ~= 19.3"]
 
