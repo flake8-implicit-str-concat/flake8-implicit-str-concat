@@ -7,9 +7,12 @@
 [![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 This is a plugin for the Python code checking tool [Flake8](http://flake8.pycqa.org/)
-which looks for style problems like implicitly concatenated string literals on the
-same line - which can be introduced by the code formating tool
-[Black](https://github.com/psf/black/issues/26).
+to encourage correct string literal concatenation.
+
+It looks for style problems like implicitly concatenated string literals on
+the same line (which can be introduced by the code formating tool
+[Black](https://github.com/psf/black/issues/26)),
+or unnecessary plus operators for explicit string literal concatenation.
 
 ## Install
 
