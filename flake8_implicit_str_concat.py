@@ -1,7 +1,9 @@
 """
+Flake8 plugin to encourage correct string literal concatenation.
+
 Forbid implicitly concatenated string literals on one line such as those
 introduced by Black.
-Forbid all explicitly concatenated strings.
+Forbid all explicitly concatenated strings, in favour of implicit concatenation.
 """
 
 from __future__ import generator_stop
