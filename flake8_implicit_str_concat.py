@@ -16,7 +16,7 @@ from typing import Iterable, List, Tuple, TypeVar
 import attr
 
 __all__ = ["__version__", "Checker"]
-__version__ = "0.0.0.post0"
+__version__ = "0.1.0"
 
 _ERROR = Tuple[int, int, str, None]
 
