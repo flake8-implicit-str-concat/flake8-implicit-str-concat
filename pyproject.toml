@@ -2,6 +2,9 @@
 requires = ["flit_core >=2,<3"]
 build-backend = "flit_core.buildapi"
 
+[tool.black]
+target_version = ["py36"]
+
 [tool.flit.metadata]
 module = "flake8_implicit_str_concat"
 description-file = "README.md"
