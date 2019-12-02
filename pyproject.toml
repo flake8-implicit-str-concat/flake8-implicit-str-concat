@@ -28,7 +28,10 @@ classifiers = [
     "Topic :: Software Development :: Quality Assurance",
 ]
 requires-python = "~=3.6"
-requires = ["attrs ~= 19.3"]
+requires = [
+    "attrs ~= 19.3",
+    "more-itertools >=8.0.2, <9",
+]
 
 
 [tool.flit.entrypoints."flake8.extension"]
