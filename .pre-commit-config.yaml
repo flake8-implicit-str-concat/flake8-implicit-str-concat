@@ -41,6 +41,7 @@ repos:
     rev: v0.740
     hooks:
       - id: mypy
+        args: []
 
   - repo: https://github.com/prettier/prettier
     rev: 1.19.1
