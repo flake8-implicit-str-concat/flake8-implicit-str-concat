@@ -9,24 +9,16 @@ Forbid all explicitly concatenated strings, in favour of implicit concatenation.
 from __future__ import generator_stop
 
 import ast
-import itertools
 import tokenize
-from typing import Iterable, List, Tuple, TypeVar
+from typing import Iterable, List, Tuple
 
 import attr
+import more_itertools
 
 __all__ = ["__version__", "Checker"]
 __version__ = "0.1.0"
 
 _ERROR = Tuple[int, int, str, None]
-
-T = TypeVar("T")
-
-
-def pairwise(iterable: Iterable[T]) -> Iterable[Tuple[T, T]]:
-    a, b = itertools.tee(iterable)
-    next(b, None)
-    return zip(a, b)
 
 
 def _implicit(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
@@ -39,7 +31,7 @@ def _implicit(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
             "over continuation line",
             None,
         )
-        for (a, b) in pairwise(file_tokens)
+        for (a, b) in more_itertools.pairwise(file_tokens)
         if a.type == b.type == tokenize.STRING
     )
 

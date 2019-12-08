@@ -40,4 +40,4 @@ jobs:
           python -m pip install --upgrade tox
 
       - name: Lint
-        run: tox -e lint
+        run: tox -e lint,mypy
