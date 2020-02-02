@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v1.25.1
+    rev: v2.3.0
     hooks:
       - id: pyupgrade
         args: ["--py36-plus"]
@@ -15,7 +15,7 @@ repos:
         types: []
 
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.7.9
+    rev: 3.8.0a2
     hooks:
       - id: flake8
         additional_dependencies: [flake8-2020]
@@ -26,19 +26,19 @@ repos:
       - id: isort
 
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.4.2
+    rev: v1.5.1
     hooks:
       - id: python-check-blanket-noqa
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.4.0
+    rev: v2.5.0
     hooks:
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
 
   - repo: https://github.com/prettier/prettier
-    rev: 1.19.1
+    rev: 2.0.5
     hooks:
       - id: prettier
         args: [--prose-wrap=always, --print-width=88]
