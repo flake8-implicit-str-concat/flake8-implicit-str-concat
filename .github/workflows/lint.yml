@@ -12,22 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: pip cache
-        uses: actions/cache@v1
+      - name: Cache
+        uses: actions/cache@v2
         with:
-          path: ~/.cache/pip
-          key: ${{ matrix.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
-          restore-keys: |
-            ${{ matrix.os }}-pip-
-
-      - name: pre-commit cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.cache/pre-commit
+          path: |
+            ~/.cache/pip
+            ~/.cache/pre-commit
           key:
-            ${{ matrix.os }}-pre-commit-${{ hashFiles('**/.pre-commit-config.yaml') }}
+            lint-${{ hashFiles('**/pyproject.toml') }}-${{
+            hashFiles('**/.pre-commit-config.yaml') }}
           restore-keys: |
-            ${{ matrix.os }}-pre-commit-
+            lint-
 
       - name: Set up Python
         uses: actions/setup-python@v2
