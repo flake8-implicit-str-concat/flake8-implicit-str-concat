@@ -2,6 +2,9 @@ name: Lint
 
 on: [push, pull_request]
 
+env:
+  FORCE_COLOR: 1
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,3 +44,5 @@ jobs:
 
       - name: Lint
         run: tox -e lint,mypy
+        env:
+          PRE_COMMIT_COLOR: always
