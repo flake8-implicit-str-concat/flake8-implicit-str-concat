@@ -30,7 +30,7 @@ classifiers = [
 ]
 requires-python = "~=3.6"
 requires = [
-    "attrs >= 19.3, <21",
+    "attrs >= 19.3",
     "more-itertools >=8.0.2, <9",
 ]
 
