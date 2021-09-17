@@ -1,44 +1,41 @@
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.7.4
+    rev: v2.14.0
     hooks:
       - id: pyupgrade
         args: ["--py36-plus"]
 
   - repo: https://github.com/psf/black
-    rev: 20.8b1
+    rev: 21.5b0
     hooks:
       - id: black
         args: ["--target-version", "py36"]
-        # override until resolved: https://github.com/psf/black/issues/402
-        files: \.pyi?$
-        types: []
 
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+  - repo: https://github.com/PyCQA/flake8
+    rev: 3.9.1
     hooks:
       - id: flake8
         additional_dependencies: [flake8-2020]
 
-  - repo: https://github.com/pycqa/isort
-    rev: 5.6.4
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.8.0
     hooks:
       - id: isort
 
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.7.0
+    rev: v1.8.0
     hooks:
       - id: python-check-blanket-noqa
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.3.0
+    rev: v3.4.0
     hooks:
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.2.0
+    rev: v2.2.1
     hooks:
       - id: prettier
         args: [--prose-wrap=always, --print-width=88]
