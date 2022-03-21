@@ -6,17 +6,17 @@
 [![GitHub](https://img.shields.io/github/license/flake8-implicit-str-concat/flake8-implicit-str-concat.svg)](LICENSE)
 [![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-This is a plugin for the Python code checking tool [Flake8](http://flake8.pycqa.org/) to
-encourage correct string literal concatenation.
+This is a plugin for the Python code-checking tool [Flake8](https://flake8.pycqa.org/)
+to encourage correct string literal concatenation.
 
 It looks for style problems like implicitly concatenated string literals on the same
-line (which can be introduced by the code formating tool
+line (which can be introduced by the code-formatting tool
 [Black](https://github.com/psf/black/issues/26)), or unnecessary plus operators for
 explicit string literal concatenation.
 
 ## Install
 
-```
+```sh
 pip install flake8-implicit-str-concat
 ```
 
