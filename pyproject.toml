@@ -3,7 +3,7 @@ requires = ["flit_core >=2,<3"]
 build-backend = "flit_core.buildapi"
 
 [tool.black]
-target_version = ["py36"]
+target_version = ["py37"]
 
 [tool.flit.metadata]
 module = "flake8_implicit_str_concat"
@@ -20,7 +20,6 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -29,7 +28,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Quality Assurance",
 ]
-requires-python = "~=3.6"
+requires-python = "~=3.7"
 requires = [
     "attrs >= 19.3",
     "more-itertools >=8.0.2, <9",

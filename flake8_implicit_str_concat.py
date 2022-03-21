@@ -6,8 +6,6 @@ introduced by Black.
 Forbid all explicitly concatenated strings, in favour of implicit concatenation.
 """
 
-from __future__ import generator_stop
-
 import ast
 import tokenize
 from typing import Iterable, List, Tuple
