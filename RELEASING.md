@@ -29,14 +29,14 @@ git push
 python -m pip install -U pip build keyring twine
 rm -rf build dist
 python -m build
-python -m twine check --strict dist/* && python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+python -m twine check --strict dist/* && python -m twine upload --repository testpypi dist/*
 ```
 
 - [ ] (Optional) Check **test** installation:
 
 ```sh
 python -m pip uninstall -y flake8-implicit-str-concat
-python -m pip install -U -i https://test.pypi.org/simple/ flake8-implicit-str-concat --pre
+python -m pip install -U -i https://test.pypi.org/simple/ flake8-implicit-str-concat --extra-index-url https://pypi.org/simple --pre
 python -m flake8
 ```
 
