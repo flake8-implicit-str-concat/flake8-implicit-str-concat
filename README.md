@@ -3,7 +3,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/flake8-implicit-str-concat.svg)](https://pypi.org/project/flake8-implicit-str-concat)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/flake8-implicit-str-concat.svg)](https://pypi.org/project/flake8-implicit-str-concat)
 [![PyPI downloads](https://img.shields.io/pypi/dm/flake8-implicit-str-concat.svg)](https://pypistats.org/packages/flake8-implicit-str-concat)
-[![GitHub](https://img.shields.io/github/license/keisheiled/flake8-implicit-str-concat.svg)](LICENSE)
+[![GitHub](https://img.shields.io/github/license/flake8-implicit-str-concat/flake8-implicit-str-concat.svg)](LICENSE)
 [![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 This is a plugin for the Python code checking tool [Flake8](http://flake8.pycqa.org/) to
