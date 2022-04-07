@@ -45,6 +45,7 @@ repos:
     hooks:
       - id: mypy
         args: [--strict]
+        additional_dependencies: [more-itertools]
 
 ci:
   autoupdate_schedule: quarterly

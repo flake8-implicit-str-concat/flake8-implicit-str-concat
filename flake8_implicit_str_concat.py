@@ -15,15 +15,7 @@ from typing import Iterable, List, Tuple
 if sys.version_info >= (3, 10):
     from itertools import pairwise
 else:
-    from itertools import tee
-    from typing import Iterator, TypeVar
-
-    _T = TypeVar("_T")
-
-    def pairwise(iterable: Iterable[_T]) -> Iterator[Tuple[_T, _T]]:
-        a, b = tee(iterable)
-        next(b, None)
-        yield from zip(a, b)
+    from more_itertools import pairwise
 
 
 __all__ = ["__version__", "Checker"]
