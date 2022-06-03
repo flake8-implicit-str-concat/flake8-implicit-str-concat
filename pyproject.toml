@@ -30,10 +30,8 @@ classifiers = [
 ]
 requires-python = "~=3.7"
 requires = [
-    "attrs >= 19.3",
-    "more-itertools >=8.0.2, <9",
+    "more-itertools >=8.0.2, <9; python_version <= '3.9'",
 ]
-
 
 [tool.flit.entrypoints."flake8.extension"]
 ISC = "flake8_implicit_str_concat:Checker"

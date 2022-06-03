@@ -7,11 +7,16 @@ Forbid all explicitly concatenated strings, in favour of implicit concatenation.
 """
 
 import ast
+import sys
 import tokenize
+from dataclasses import dataclass
 from typing import Iterable, List, Tuple
 
-import attr
-import more_itertools
+if sys.version_info >= (3, 10):
+    from itertools import pairwise
+else:
+    from more_itertools import pairwise
+
 
 __all__ = ["__version__", "Checker"]
 __version__ = "0.3.0"
@@ -29,7 +34,7 @@ def _implicit(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
             "over continuation line",
             None,
         )
-        for (a, b) in more_itertools.pairwise(file_tokens)
+        for (a, b) in pairwise(file_tokens)
         if a.type == b.type == tokenize.STRING
     )
 
@@ -52,7 +57,7 @@ def _explicit(root_node: ast.AST) -> Iterable[_ERROR]:
     )
 
 
-@attr.s(frozen=True, auto_attribs=True)
+@dataclass(frozen=True)
 class Checker:
     name = __name__
     version = __version__
