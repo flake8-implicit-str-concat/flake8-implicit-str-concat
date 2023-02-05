@@ -53,3 +53,9 @@ The plugin uses the prefix `ISC`, short for Implicit String Concatenation.
 | ISC001 | implicitly concatenated string literals on one line              |
 | ISC002 | implicitly concatenated string literals over continuation line   |
 | ISC003 | explicitly concatenated string should be implicitly concatenated |
+
+## Release Notes
+
+You can find the release notes on the
+[https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/releases](releases
+page).
