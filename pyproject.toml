@@ -1,16 +1,13 @@
 [build-system]
-requires = ["flit_core >=2,<3"]
+requires = ["flit_core >=3,<4"]
 build-backend = "flit_core.buildapi"
-
-[tool.black]
-target_version = ["py37"]
 
 [tool.flit.metadata]
 module = "flake8_implicit_str_concat"
 description-file = "README.md"
 author = "Dylan Turner"
 author-email = "58230987+keisheiled@users.noreply.github.com"
-home-page = "https://github.com/keisheiled/flake8-implicit-str-concat"
+home-page = "https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
@@ -24,16 +21,15 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Quality Assurance",
 ]
 requires-python = "~=3.7"
 requires = [
-    "attrs >= 19.3",
-    "more-itertools >=8.0.2, <9",
+    "more-itertools >=8.0.2; python_version <= '3.9'",
 ]
-
 
 [tool.flit.entrypoints."flake8.extension"]
 ISC = "flake8_implicit_str_concat:Checker"
