@@ -37,13 +37,7 @@ python -m twine check --strict dist/* && python -m twine upload --repository tes
 ```sh
 python -m pip uninstall -y flake8-implicit-str-concat
 python -m pip install -U -i https://test.pypi.org/simple/ flake8-implicit-str-concat --extra-index-url https://pypi.org/simple --pre
-python -m flake8
-```
-
-- [ ] Tag with the version number:
-
-```sh
-git tag -a 0.3.0 -m "0.3.0"
+python -m flake8 --version
 ```
 
 - [ ] Create a distribution and release on **live PyPI**:
@@ -60,11 +54,13 @@ python -m twine check --strict dist/* && python -m twine upload -r pypi dist/*
 ```sh
 python -m pip uninstall -y flake8-implicit-str-concat
 python -m pip install -U flake8-implicit-str-concat
-python -m flake8
+python -m flake8 --version
 ```
 
-- [ ] Push tag:
+- [ ] Draft a new release:
+      https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/releases/new
 
-```sh
-git push --tags
-```
+- [ ] "Choose a tag" > enter new version (e.g. "0.4.0") > "Create new tag"
+- [ ] Leave "Release title" empty
+- [ ] Click "Generate release notes" and amend if needed
+- [ ] Publish release
