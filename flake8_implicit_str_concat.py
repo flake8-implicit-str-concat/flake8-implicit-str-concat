@@ -19,7 +19,7 @@ else:
 
 
 __all__ = ["__version__", "Checker"]
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 _ERROR = Tuple[int, int, str, None]
 
