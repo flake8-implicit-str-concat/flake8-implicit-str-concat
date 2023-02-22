@@ -57,5 +57,4 @@ The plugin uses the prefix `ISC`, short for Implicit String Concatenation.
 ## Release Notes
 
 You can find the release notes on the
-[https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/releases](releases
-page).
+[releases page](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/releases).
