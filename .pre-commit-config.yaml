@@ -10,16 +10,17 @@ repos:
     hooks:
       - id: black
 
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [--add-import=from __future__ import annotations]
+
   - repo: https://github.com/PyCQA/flake8
     rev: 6.0.0
     hooks:
       - id: flake8
         additional_dependencies: [flake8-2020]
-
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
@@ -36,6 +37,14 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.3.0
+    hooks:
+      - id: mypy
+        args: [--strict, --pretty, --show-error-codes]
+        additional_dependencies: [more-itertools]
+
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: 0.10.0
     hooks:
@@ -56,13 +65,6 @@ repos:
     hooks:
       - id: prettier
         args: [--prose-wrap=always, --print-width=88]
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.3.0
-    hooks:
-      - id: mypy
-        args: [--strict]
-        additional_dependencies: [more-itertools]
 
 ci:
   autoupdate_schedule: quarterly
