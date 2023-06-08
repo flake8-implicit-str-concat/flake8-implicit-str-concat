@@ -1,6 +1,8 @@
 [build-system]
-requires = ["flit_core >=3,<4"]
 build-backend = "flit_core.buildapi"
+requires = [
+  "flit_core<4,>=3",
+]
 
 [tool.flit.metadata]
 module = "flake8_implicit_str_concat"
