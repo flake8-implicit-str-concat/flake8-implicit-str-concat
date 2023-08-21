@@ -6,11 +6,13 @@ introduced by Black.
 Forbid all explicitly concatenated strings, in favour of implicit concatenation.
 """
 
+from __future__ import annotations
+
 import ast
 import sys
 import tokenize
 from dataclasses import dataclass
-from typing import Iterable, List, Tuple
+from typing import Iterable, Tuple
 
 if sys.version_info >= (3, 10):
     from itertools import pairwise
@@ -62,7 +64,7 @@ class Checker:
     name = __name__
     version = __version__
     tree: ast.AST
-    file_tokens: List[tokenize.TokenInfo]
+    file_tokens: list[tokenize.TokenInfo]
 
     def run(self) -> Iterable[_ERROR]:
         yield from _implicit(self.file_tokens)
