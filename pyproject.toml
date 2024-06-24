@@ -4,6 +4,8 @@ requires = [
   "flit_core<4,>=3",
 ]
 
+[tool.flit.entrypoints."flake8.extension"]
+ISC = "flake8_implicit_str_concat:Checker"
 [tool.flit.metadata]
 module = "flake8_implicit_str_concat"
 description-file = "README.md"
@@ -24,6 +26,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Quality Assurance",
@@ -33,5 +36,32 @@ requires = [
     "more-itertools >=8.0.2; python_version <= '3.9'",
 ]
 
-[tool.flit.entrypoints."flake8.extension"]
-ISC = "flake8_implicit_str_concat:Checker"
+[tool.ruff]
+fix = true
+
+[tool.ruff.lint]
+select = [
+  "C4",     # flake8-comprehensions
+  "E",      # pycodestyle errors
+  "EM",     # flake8-errmsg
+  "F",      # pyflakes errors
+  "I",      # isort
+  "ISC",    # flake8-implicit-str-concat
+  "LOG",    # flake8-logging
+  "PGH",    # pygrep-hooks
+  "PYI",    # flake8-pyi
+  "RUF100", # unused noqa (yesqa)
+  "RUF022", # unsorted-dunder-all
+  "UP",     # pyupgrade
+  "W",      # pycodestyle warnings
+  "YTT",    # flake8-2020
+]
+ignore = [
+  "E203",   # Whitespace before ':'
+  "E221",   # Multiple spaces before operator
+  "E226",   # Missing whitespace around arithmetic operator
+  "E241",   # Multiple spaces after ','
+]
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
