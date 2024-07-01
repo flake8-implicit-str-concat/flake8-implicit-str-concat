@@ -1,7 +1,7 @@
 [build-system]
 build-backend = "flit_core.buildapi"
 requires = [
-  "flit_core<4,>=3",
+  "flit-core<4,>=3",
 ]
 
 [tool.flit.entrypoints."flake8.extension"]
@@ -13,34 +13,33 @@ author = "Dylan Turner"
 author-email = "58230987+keisheiled@users.noreply.github.com"
 home-page = "https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat"
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Console",
-    "Framework :: Flake8",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3 :: Only",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Quality Assurance",
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Framework :: Flake8",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Software Development :: Quality Assurance",
 ]
 requires-python = ">=3.8"
 requires = [
-    "more-itertools >=8.0.2; python_version <= '3.9'",
+  "more-itertools >=8.0.2; python_version <= '3.9'",
 ]
 
 [tool.ruff]
 fix = true
 
-[tool.ruff.lint]
-select = [
+lint.select = [
   "C4",     # flake8-comprehensions
   "E",      # pycodestyle errors
   "EM",     # flake8-errmsg
@@ -50,18 +49,18 @@ select = [
   "LOG",    # flake8-logging
   "PGH",    # pygrep-hooks
   "PYI",    # flake8-pyi
-  "RUF100", # unused noqa (yesqa)
   "RUF022", # unsorted-dunder-all
+  "RUF100", # unused noqa (yesqa)
   "UP",     # pyupgrade
   "W",      # pycodestyle warnings
   "YTT",    # flake8-2020
 ]
-ignore = [
-  "E203",   # Whitespace before ':'
-  "E221",   # Multiple spaces before operator
-  "E226",   # Missing whitespace around arithmetic operator
-  "E241",   # Multiple spaces after ','
+lint.ignore = [
+  "E203", # Whitespace before ':'
+  "E221", # Multiple spaces before operator
+  "E226", # Missing whitespace around arithmetic operator
+  "E241", # Multiple spaces after ','
 ]
-
-[tool.ruff.lint.isort]
-required-imports = ["from __future__ import annotations"]
+lint.isort.required-imports = [
+  "from __future__ import annotations",
+]
