@@ -1,8 +1,8 @@
 # Release Checklist
 
-- [ ] Get `master` to the appropriate code release state.
+- [ ] Get `main` to the appropriate code release state.
       [GitHub Actions](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/actions)
-      should be running cleanly for all merges to `master`.
+      should be running cleanly for all merges to `main`.
       [![GitHub Actions status](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/workflows/Test/badge.svg)](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/actions)
 
 * [ ] Start from a freshly cloned repo and bump version number:
