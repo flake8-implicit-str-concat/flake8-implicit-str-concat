@@ -1,66 +1,37 @@
 # Release Checklist
 
-- [ ] Get `main` to the appropriate code release state.
+- [ ] Check tests pass on
       [GitHub Actions](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/actions)
-      should be running cleanly for all merges to `main`.
-      [![GitHub Actions status](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/workflows/Test/badge.svg)](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/actions)
+      [![GitHub Actions status](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/actions/workflows/main.yml/badge.svg)](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/actions/workflows/main.yml)
 
-* [ ] Start from a freshly cloned repo and bump version number:
+- [ ] Update
+      [changelog](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/blob/main/CHANGELOG.md)
 
-```sh
-cd /tmp
-rm -rf flake8-implicit-str-concat
-git clone https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat
-cd flake8-implicit-str-concat
-edit flake8_implicit_str_concat.py
-```
+- [ ] Go to the
+      [Releases page](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/releases)
+      and
 
-- [ ] Commit and push:
+  - [ ] Click "Draft a new release"
 
-```sh
-git add flake8_implicit_str_concat.py
-git commit -m "bump version"
-git push
-```
+  - [ ] Click "Choose a tag"
 
-- [ ] (Optional) Create a distribution and release on **TestPyPI**:
+  - [ ] Type the next `X.Y.Z` version and select "**Create new tag: X.Y.Z** on publish"
 
-```sh
-python -m pip install -U pip build keyring twine
-rm -rf build dist
-python -m build
-python -m twine check --strict dist/* && python -m twine upload --repository testpypi dist/*
-```
+  - [ ] Leave the "Release title" blank (it will be autofilled)
 
-- [ ] (Optional) Check **test** installation:
+  - [ ] Click "Generate release notes" and amend as required
 
-```sh
-python -m pip uninstall -y flake8-implicit-str-concat
-python -m pip install -U -i https://test.pypi.org/simple/ flake8-implicit-str-concat --extra-index-url https://pypi.org/simple --pre
-python -m flake8 --version
-```
+  - [ ] Click "Publish release"
 
-- [ ] Create a distribution and release on **live PyPI**:
-
-```sh
-python -m pip install -U pip build keyring twine
-rm -rf build dist
-python -m build
-python -m twine check --strict dist/* && python -m twine upload -r pypi dist/*
-```
+- [ ] Check the tagged
+      [GitHub Actions build](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/actions/workflows/deploy.yml)
+      has deployed to
+      [PyPI](https://pypi.org/project/flake8-implicit-str-concat/#history)
 
 - [ ] Check installation:
 
-```sh
-python -m pip uninstall -y flake8-implicit-str-concat
-python -m pip install -U flake8-implicit-str-concat
-python -m flake8 --version
-```
-
-- [ ] Draft a new release:
-      https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/releases/new
-
-- [ ] "Choose a tag" > enter new version (e.g. "0.4.0") > "Create new tag"
-- [ ] Leave "Release title" empty
-- [ ] Click "Generate release notes" and amend if needed
-- [ ] Publish release
+  ```bash
+  python -m pip uninstall -y flake8-implicit-str-concat \
+  && python -m pip install -U flake8-implicit-str-concat \
+  && flake8 --version | grep flake8_implicit_str_concat
+  ```
