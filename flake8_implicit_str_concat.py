@@ -11,8 +11,8 @@ from __future__ import annotations
 import ast
 import sys
 import tokenize
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Iterable, Tuple
 
 if sys.version_info >= (3, 10):
     from itertools import pairwise
@@ -23,7 +23,7 @@ else:
 __all__ = ["__version__", "Checker"]
 __version__ = "0.4.0"
 
-_ERROR = Tuple[int, int, str, None]
+_ERROR = tuple[int, int, str, None]
 
 
 def _implicit(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
