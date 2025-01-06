@@ -20,7 +20,7 @@ else:
     from more_itertools import pairwise
 
 
-__all__ = ["__version__", "Checker"]
+__all__ = ["Checker", "__version__"]
 __version__ = "0.4.0"
 
 _ERROR = tuple[int, int, str, None]
