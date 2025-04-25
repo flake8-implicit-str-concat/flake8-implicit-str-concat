@@ -4,7 +4,8 @@
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/flake8-implicit-str-concat.svg)](https://pypi.org/project/flake8-implicit-str-concat)
 [![PyPI downloads](https://img.shields.io/pypi/dm/flake8-implicit-str-concat.svg)](https://pypistats.org/packages/flake8-implicit-str-concat)
 [![GitHub](https://img.shields.io/github/license/flake8-implicit-str-concat/flake8-implicit-str-concat.svg)](LICENSE)
-[![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Code style: Black](https://img.shields.io/badge/code%20style-Black-000000.svg)](https://github.com/psf/black)
+[![Tidelift](https://tidelift.com/badges/package/pypi/flake8-implicit-str-concat)](https://tidelift.com/subscription/pkg/pypi-flake8-implicit-str-concat?utm_source=pypi-flake8-implicit-str-concat&utm_medium=referral&utm_campaign=readme)
 
 This is a plugin for the Python code-checking tool [Flake8](https://flake8.pycqa.org/)
 to encourage correct string literal concatenation.
@@ -54,7 +55,7 @@ The plugin uses the prefix `ISC`, short for Implicit String Concatenation.
 | ISC002 | implicitly concatenated string literals over continuation line   |
 | ISC003 | explicitly concatenated string should be implicitly concatenated |
 
-## Release Notes
+## Release notes
 
 You can find the release notes on the
 [releases page](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/releases).
