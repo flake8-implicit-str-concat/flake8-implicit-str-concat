@@ -7,7 +7,6 @@
 - [ ] Go to the
       [Releases page](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/releases)
       and
-
   - [ ] Click "Draft a new release"
 
   - [ ] Click "Choose a tag"
