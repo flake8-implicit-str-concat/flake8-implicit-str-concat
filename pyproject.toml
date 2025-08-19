@@ -33,6 +33,10 @@ dynamic = [ "version" ]
 dependencies = [
   "more-itertools>=8.0.2; python_version<='3.9'",
 ]
+optional-dependencies.tests = [
+  "pytest",
+  "pytest-cov",
+]
 
 urls.Homepage = "https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat"
 
@@ -72,6 +76,9 @@ lint.ignore = [
   "UP038", # Makes code slower and more verbose
 ]
 lint.isort.required-imports = [ "from __future__ import annotations" ]
+
+[tool.pytest.ini_options]
+testpaths = [ "tests" ]
 
 [tool.mypy]
 pretty = true
