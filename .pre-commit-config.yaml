@@ -37,7 +37,7 @@ repos:
     rev: v1.16.1
     hooks:
       - id: mypy
-        additional_dependencies: [more-itertools]
+        additional_dependencies: [more-itertools, pytest]
 
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: v2.6.0

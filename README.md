@@ -3,7 +3,9 @@
 [![PyPI version](https://img.shields.io/pypi/v/flake8-implicit-str-concat.svg)](https://pypi.org/project/flake8-implicit-str-concat)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/flake8-implicit-str-concat.svg)](https://pypi.org/project/flake8-implicit-str-concat)
 [![PyPI downloads](https://img.shields.io/pypi/dm/flake8-implicit-str-concat.svg)](https://pypistats.org/packages/flake8-implicit-str-concat)
-[![GitHub](https://img.shields.io/github/license/flake8-implicit-str-concat/flake8-implicit-str-concat.svg)](LICENSE)
+[![GitHub Actions status](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/workflows/Test/badge.svg)](https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat/actions)
+[![Codecov](https://codecov.io/gh/flake8-implicit-str-concat/flake8-implicit-str-concat/branch/main/graph/badge.svg)](https://codecov.io/gh/flake8-implicit-str-concat/flake8-implicit-str-concat)
+[![Licence](https://img.shields.io/github/license/flake8-implicit-str-concat/flake8-implicit-str-concat.svg)](LICENSE)
 [![Code style: Black](https://img.shields.io/badge/code%20style-Black-000000.svg)](https://github.com/psf/black)
 [![Tidelift](https://tidelift.com/badges/package/pypi/flake8-implicit-str-concat)](https://tidelift.com/subscription/pkg/pypi-flake8-implicit-str-concat?utm_source=pypi-flake8-implicit-str-concat&utm_medium=referral&utm_campaign=readme)
 
