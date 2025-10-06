@@ -9,16 +9,10 @@ Forbid all explicitly concatenated strings, in favour of implicit concatenation.
 from __future__ import annotations
 
 import ast
-import sys
 import tokenize
 from collections.abc import Iterable
 from dataclasses import dataclass
-
-if sys.version_info >= (3, 10):
-    from itertools import pairwise
-else:
-    from more_itertools import pairwise
-
+from itertools import pairwise
 
 __all__ = ["Checker", "__version__"]
 __version__ = "0.4.0"
