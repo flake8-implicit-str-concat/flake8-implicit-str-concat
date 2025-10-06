@@ -49,7 +49,11 @@ def _explicit(root_node: ast.AST) -> Iterable[_ERROR]:
         if isinstance(node, ast.BinOp)
         and isinstance(node.op, ast.Add)
         and all(
-            isinstance(operand, (ast.Str, ast.Bytes, ast.JoinedStr))
+            isinstance(operand, ast.JoinedStr)
+            or (
+                isinstance(operand, ast.Constant)
+                and isinstance(operand.value, (str, bytes))
+            )
             for operand in [node.left, node.right]
         )
     )
