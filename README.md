@@ -56,6 +56,46 @@ The plugin uses the prefix `ISC`, short for Implicit String Concatenation.
 | ISC001 | implicitly concatenated string literals on one line              |
 | ISC002 | implicitly concatenated string literals over continuation line   |
 | ISC003 | explicitly concatenated string should be implicitly concatenated |
+| ISC004 | unparenthesized implicit string concatenation in collection      |
+
+### ISC004
+
+Checks for implicitly concatenated strings inside list, tuple, and set literals.
+
+In collection literals, implicit string concatenation is often the result of a missing
+comma between elements, which can silently merge items together.
+
+```python
+# Bad
+facts = (
+    "Lobsters have blue blood.",
+    "The liver is the only human organ that can fully regenerate itself.",
+    "Clarinets are made almost entirely out of wood from the mpingo tree."
+    "In 1971, astronaut Alan Shepard played golf on the moon.",
+)
+
+# Good
+facts = (
+    "Lobsters have blue blood.",
+    "The liver is the only human organ that can fully regenerate itself.",
+    "Clarinets are made almost entirely out of wood from the mpingo tree.",
+    "In 1971, astronaut Alan Shepard played golf on the moon.",
+)
+```
+
+If the concatenation is intentional, wrap it in parentheses to make it explicit:
+
+```python
+# Good
+facts = (
+    "Lobsters have blue blood.",
+    "The liver is the only human organ that can fully regenerate itself.",
+    (
+        "Clarinets are made almost entirely out of wood from the mpingo tree."
+        "In 1971, astronaut Alan Shepard played golf on the moon."
+    ),
+)
+```
 
 ## Release notes
 

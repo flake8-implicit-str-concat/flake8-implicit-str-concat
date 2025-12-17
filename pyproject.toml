@@ -72,6 +72,7 @@ lint.ignore = [
   "E241",  # Multiple spaces after ','
   "UP038", # Makes code slower and more verbose
 ]
+lint.per-file-ignores."tests/fixtures/*" = [ "I002" ]
 lint.isort.required-imports = [ "from __future__ import annotations" ]
 
 [tool.pyproject-fmt]
