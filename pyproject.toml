@@ -85,3 +85,4 @@ testpaths = [ "tests" ]
 pretty = true
 strict = true
 show_error_codes = true
+exclude = [ "^tests/fixtures/" ]
