@@ -124,16 +124,6 @@ def _in_collection(
                 if not _token_in_node(a, elt):
                     continue
 
-                # Skip if strings end with \n (intentional multi-line building)
-                try:
-                    a_value = ast.literal_eval(a.string)
-                    if isinstance(a_value, bytes) and a_value.endswith(b"\n"):
-                        continue
-                    if isinstance(a_value, str) and a_value.endswith("\n"):
-                        continue
-                except (ValueError, SyntaxError):
-                    pass
-
                 # Check if the concatenation is parenthesized
                 if _is_parenthesized(a_idx, b_idx, file_tokens):
                     continue
