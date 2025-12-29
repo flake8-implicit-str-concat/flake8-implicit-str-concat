@@ -76,14 +76,7 @@ def _explicit(root_node: ast.AST) -> Iterable[_ERROR]:
         for node in ast.walk(root_node)
         if isinstance(node, ast.BinOp)
         and isinstance(node.op, ast.Add)
-        and all(
-            isinstance(operand, ast.JoinedStr)
-            or (
-                isinstance(operand, ast.Constant)
-                and isinstance(operand.value, (str, bytes))
-            )
-            for operand in [node.left, node.right]
-        )
+        and all(_is_string_node(operand) for operand in [node.left, node.right])
     )
 
 
@@ -119,6 +112,10 @@ def _in_collection(
             continue
 
         for elt in node.elts:
+            # Only flag direct string constants or f-strings, not nested structures
+            if not _is_string_node(elt):
+                continue
+
             # Check if any implicit concat falls within this element
             for a, b, a_idx, b_idx in implicit_concats:
                 if not _token_in_node(a, elt):
@@ -137,6 +134,13 @@ def _in_collection(
                     ),
                     None,
                 )
+
+
+def _is_string_node(node: ast.expr) -> bool:
+    """Check if an AST node is a string constant or f-string."""
+    return isinstance(node, ast.JoinedStr) or (
+        isinstance(node, ast.Constant) and isinstance(node.value, (str, bytes))
+    )
 
 
 def _token_in_node(token: tokenize.TokenInfo, node: ast.expr) -> bool:
