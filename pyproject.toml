@@ -9,7 +9,8 @@ requires = [
 name = "flake8-implicit-str-concat"
 description = "Flake8 plugin to encourage correct string literal concatenation"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = [ "LICENSE" ]
 authors = [ { name = "Dylan Turner", email = "58230987+keisheiled@users.noreply.github.com" } ]
 requires-python = ">=3.10"
 classifiers = [
@@ -17,7 +18,6 @@ classifiers = [
   "Environment :: Console",
   "Framework :: Flake8",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
