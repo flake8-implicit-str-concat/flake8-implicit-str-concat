@@ -34,6 +34,11 @@ repos:
     hooks:
       - id: actionlint
 
+  - repo: https://github.com/woodruffw/zizmor-pre-commit
+    rev: v1.18.0
+    hooks:
+      - id: zizmor
+
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: v2.11.1
     hooks:
