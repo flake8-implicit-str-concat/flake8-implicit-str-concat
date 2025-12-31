@@ -64,3 +64,13 @@ facts = (
     "Clarinets are made almost entirely out of wood from the mpingo tree.\n"
     "In 1971, astronaut Alan Shepard played golf on the moon.\n"
 )
+
+# Function calls should not trigger ISC004 (not a collection)
+def func(*args, **kwargs) -> None: pass
+
+functions = [
+    print("Lobsters have " "blue blood"),
+    func(1, "Honey " "never " "spoils", 3),
+    func("Octopuses have " "three hearts"),
+    func(arg="mpingo" "tree"),
+]
