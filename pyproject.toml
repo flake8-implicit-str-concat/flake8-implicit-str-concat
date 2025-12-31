@@ -46,6 +46,9 @@ version.source = "vcs"
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
 
+[tool.black]
+force-exclude = "tests/fixtures/"
+
 [tool.ruff]
 fix = true
 
@@ -67,12 +70,12 @@ lint.select = [
   "YTT",    # flake8-2020
 ]
 lint.ignore = [
-  "E203",  # Whitespace before ':'
-  "E221",  # Multiple spaces before operator
-  "E226",  # Missing whitespace around arithmetic operator
-  "E241",  # Multiple spaces after ','
-  "UP038", # Makes code slower and more verbose
+  "E203", # Whitespace before ':'
+  "E221", # Multiple spaces before operator
+  "E226", # Missing whitespace around arithmetic operator
+  "E241", # Multiple spaces after ','
 ]
+lint.per-file-ignores."tests/fixtures/*" = [ "I002", "ISC" ]
 lint.isort.required-imports = [ "from __future__ import annotations" ]
 
 [tool.pyproject-fmt]
@@ -85,3 +88,4 @@ testpaths = [ "tests" ]
 pretty = true
 strict = true
 show_error_codes = true
+exclude = [ "^tests/fixtures/" ]
