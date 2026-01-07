@@ -21,6 +21,7 @@ repos:
       - id: debug-statements
       - id: end-of-file-fixer
       - id: forbid-submodules
+      - id: requirements-txt-fixer
       - id: trailing-whitespace
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
@@ -32,12 +33,6 @@ repos:
     rev: v1.7.10
     hooks:
       - id: actionlint
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.1
-    hooks:
-      - id: mypy
-        additional_dependencies: [pytest]
 
   - repo: https://github.com/woodruffw/zizmor-pre-commit
     rev: v1.19.0
