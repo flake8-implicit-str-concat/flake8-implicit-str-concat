@@ -32,26 +32,21 @@ classifiers = [
 ]
 dynamic = [ "version" ]
 optional-dependencies.tests = [
-  "pytest",
+  "pytest>=9",
   "pytest-cov",
 ]
-
 urls.Homepage = "https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat"
-
 entry-points."flake8.extension".ISC = "flake8_implicit_str_concat:Checker"
 
 [tool.hatch]
 version.source = "vcs"
-
-[tool.hatch.version.raw-options]
-local_scheme = "no-local-version"
+version.raw-options.local_scheme = "no-local-version"
 
 [tool.black]
 force-exclude = "tests/fixtures/"
 
 [tool.ruff]
 fix = true
-
 lint.select = [
   "C4",     # flake8-comprehensions
   "E",      # pycodestyle errors
@@ -81,11 +76,12 @@ lint.isort.required-imports = [ "from __future__ import annotations" ]
 [tool.pyproject-fmt]
 max_supported_python = "3.15"
 
-[tool.pytest.ini_options]
-testpaths = [ "tests" ]
-
 [tool.mypy]
 pretty = true
 strict = true
 show_error_codes = true
 exclude = [ "^tests/fixtures/" ]
+
+[tool.pytest]
+minversion = "9.0"
+testpaths = [ "tests" ]
