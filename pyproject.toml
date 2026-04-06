@@ -32,7 +32,7 @@ classifiers = [
 ]
 dynamic = [ "version" ]
 optional-dependencies.tests = [
-  "pytest",
+  "pytest>=9",
   "pytest-cov",
 ]
 urls.Homepage = "https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat"
@@ -83,4 +83,5 @@ show_error_codes = true
 exclude = [ "^tests/fixtures/" ]
 
 [tool.pytest]
-ini_options.testpaths = [ "tests" ]
+minversion = "9.0"
+testpaths = [ "tests" ]
