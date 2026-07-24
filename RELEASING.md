@@ -11,7 +11,7 @@
 
   - [ ] Click "Select tag"
 
-  - [ ] Type the next `X.Y.Z` version and select "Create new tag" then click "Create"
+  - [ ] Type the next `X.Y.Z` version, click "Create new tag" then "Create"
 
   - [ ] Leave the "Release title" blank (it will be autofilled)
 
