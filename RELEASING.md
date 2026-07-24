@@ -9,9 +9,9 @@
       and
   - [ ] Click "Draft a new release"
 
-  - [ ] Click "Choose a tag"
+  - [ ] Click "Select tag"
 
-  - [ ] Type the next `X.Y.Z` version and select "**Create new tag: X.Y.Z** on publish"
+  - [ ] Type the next `X.Y.Z` version, click "Create new tag" then "Create"
 
   - [ ] Leave the "Release title" blank (it will be autofilled)
 
