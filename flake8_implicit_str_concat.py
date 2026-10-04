@@ -23,7 +23,7 @@ __version__ = "0.4.0"
 
 _ERROR = tuple[int, int, str, None]
 
-# Token types to skip when checking for consecutive strings
+# Trivia token types ignored when looking for the adjacent significant token
 _SKIP_TOKEN_TYPES = frozenset(
     {
         tokenize.NL,
@@ -36,14 +36,21 @@ _SKIP_TOKEN_TYPES = frozenset(
     }
 )
 
-# Significant token types that break implicit concatenation
-_SIGNIFICANT_TOKEN_TYPES = frozenset(
-    {
-        tokenize.NAME,
-        tokenize.NUMBER,
-        tokenize.STRING,
-    }
+# f-strings (Python 3.12+) and t-strings (Python 3.14+) tokenize as
+# START...END token groups rather than single STRING tokens
+_STRING_START_TYPES = frozenset(
+    getattr(tokenize, name)
+    for name in ("FSTRING_START", "TSTRING_START")
+    if hasattr(tokenize, name)
 )
+_STRING_END_TYPES = frozenset(
+    getattr(tokenize, name)
+    for name in ("FSTRING_END", "TSTRING_END")
+    if hasattr(tokenize, name)
+)
+
+# ast.TemplateStr is t-strings, Python 3.14+
+_JOINED_STR_TYPES = (ast.JoinedStr, getattr(ast, "TemplateStr", ast.JoinedStr))
 
 
 def _implicit(file_tokens: Iterable[tokenize.TokenInfo]) -> Iterable[_ERROR]:
@@ -85,28 +92,19 @@ def _in_collection(
     file_tokens: Sequence[tokenize.TokenInfo],
 ) -> Iterable[_ERROR]:
     """Detect unparenthesized implicit string concatenation in collections (ISC004)."""
-    # Pre-build token index for O(1) lookups
-    token_index = {id(t): i for i, t in enumerate(file_tokens)}
-
-    # Get STRING tokens with their indices
-    string_tokens = [
-        (t, token_index[id(t)]) for t in file_tokens if t.type == tokenize.STRING
-    ]
-    if len(string_tokens) < 2:
+    chains = _concat_chains(file_tokens)
+    if not chains:
         return
 
-    # Find all implicit string concatenations (consecutive STRING tokens in token
-    # order). These may have NL/NEWLINE/COMMENT tokens between them but no other
-    # significant tokens.
-    implicit_concats = []
-    for (a, a_idx), (b, b_idx) in pairwise(string_tokens):
-        if _are_consecutive_strings(a_idx, b_idx, file_tokens):
-            implicit_concats.append((a, b, a_idx, b_idx))
+    # ast reports column offsets in bytes but tokenize in characters, so key
+    # each chain by the (row, byte column) where its first token starts
+    chain_starts = {}
+    for chain in chains:
+        token = file_tokens[chain[0][0]]
+        row, col = token.start
+        byte_col = len(token.line[:col].encode("utf-8"))
+        chain_starts[(row, byte_col)] = chain
 
-    if not implicit_concats:
-        return
-
-    # Find all collections and check if any implicit concat is inside them
     for node in ast.walk(root_node):
         if not isinstance(node, (ast.List, ast.Tuple, ast.Set)):
             continue
@@ -116,53 +114,92 @@ def _in_collection(
             if not _is_string_node(elt):
                 continue
 
-            # Check if any implicit concat falls within this element
-            for a, b, a_idx, b_idx in implicit_concats:
-                if not _token_in_node(a, elt):
-                    continue
+            # Python's ast collapses implicitly concatenated strings into a
+            # single node, so a chain starting exactly where the element
+            # starts is the element's own implicit concatenation
+            elt_chain = chain_starts.get((elt.lineno, elt.col_offset))
+            if elt_chain is None:
+                continue
 
-                # Check if the concatenation is parenthesized
-                if _is_parenthesized(a_idx, b_idx, file_tokens):
-                    continue
+            if _is_parenthesized(elt_chain[0][0], elt_chain[-1][1], file_tokens):
+                continue
 
-                yield (
-                    a.end[0],
-                    a.end[1],
-                    (
-                        "ISC004 unparenthesized implicit string concatenation "
-                        "in collection (missing comma?)"
-                    ),
-                    None,
-                )
+            first_string_end = file_tokens[elt_chain[0][1]].end
+            yield (
+                *first_string_end,
+                (
+                    "ISC004 unparenthesized implicit string concatenation "
+                    "in collection (missing comma?)"
+                ),
+                None,
+            )
+
+
+def _string_atoms(
+    file_tokens: Sequence[tokenize.TokenInfo],
+) -> Iterable[tuple[int, int]]:
+    """Yield (first, last) token index ranges of individual string literals.
+
+    A plain string literal is a single STRING token; an f-string or t-string
+    spans a whole START...END token group (which may contain STRING tokens
+    inside replacement fields that are not implicit concatenation).
+    """
+    depth = 0
+    start = 0
+    for i, token in enumerate(file_tokens):
+        if token.type in _STRING_START_TYPES:
+            if depth == 0:
+                start = i
+            depth += 1
+        elif token.type in _STRING_END_TYPES:
+            depth -= 1
+            if depth == 0:
+                yield start, i
+        elif depth == 0 and token.type == tokenize.STRING:
+            yield i, i
+
+
+def _concat_chains(
+    file_tokens: Sequence[tokenize.TokenInfo],
+) -> list[list[tuple[int, int]]]:
+    """Group adjacent string literals into implicit concatenation chains.
+
+    Two literals are adjacent when only trivia tokens separate them. Returns
+    only chains of two or more literals.
+    """
+    chains = []
+    chain: list[tuple[int, int]] = []
+    for first, last in _string_atoms(file_tokens):
+        if chain and all(
+            file_tokens[i].type in _SKIP_TOKEN_TYPES
+            for i in range(chain[-1][1] + 1, first)
+        ):
+            chain.append((first, last))
+        else:
+            if len(chain) > 1:
+                chains.append(chain)
+            chain = [(first, last)]
+    if len(chain) > 1:
+        chains.append(chain)
+    return chains
 
 
 def _is_string_node(node: ast.expr) -> bool:
-    """Check if an AST node is a string constant or f-string."""
-    return isinstance(node, ast.JoinedStr) or (
+    """Check if an AST node is a string constant, f-string or t-string."""
+    return isinstance(node, _JOINED_STR_TYPES) or (
         isinstance(node, ast.Constant) and isinstance(node.value, (str, bytes))
     )
 
 
-def _token_in_node(token: tokenize.TokenInfo, node: ast.expr) -> bool:
-    """Check if a token falls within an AST node's range."""
-    if not hasattr(node, "end_lineno") or not hasattr(node, "end_col_offset"):
-        return False
-
-    start = (node.lineno, node.col_offset)
-    end = (node.end_lineno, node.end_col_offset)
-    return start <= token.start and token.end <= end
-
-
-def _are_consecutive_strings(
-    a_idx: int,
-    b_idx: int,
+def _next_significant(
     file_tokens: Sequence[tokenize.TokenInfo],
-) -> bool:
-    """Check if two STRING tokens are consecutive (no significant tokens between)."""
-    for i in range(a_idx + 1, b_idx):
+    indices: Iterable[int],
+) -> tokenize.TokenInfo | None:
+    """Return the first non-trivia token at the given indices, if any."""
+    for i in indices:
         if file_tokens[i].type not in _SKIP_TOKEN_TYPES:
-            return False
-    return True
+            return file_tokens[i]
+    return None
 
 
 def _is_parenthesized(
@@ -170,51 +207,15 @@ def _is_parenthesized(
     last_idx: int,
     file_tokens: Sequence[tokenize.TokenInfo],
 ) -> bool:
-    """Check if a string concatenation is wrapped in parentheses."""
-    # Look backwards from first string for left parenthesis
-    paren_depth = 0
-    found_lparen = False
-    for i in range(first_idx - 1, -1, -1):
-        t = file_tokens[i]
-        if t.type == tokenize.OP:
-            if t.string == ")":
-                paren_depth += 1
-            elif t.string == "(":
-                if paren_depth > 0:
-                    paren_depth -= 1
-                else:
-                    found_lparen = True
-                    break
-            elif t.string == ",":
-                # Hit a comma before finding opening paren - not parenthesized
-                return False
-        elif t.type in _SIGNIFICANT_TOKEN_TYPES:
-            # Hit another significant token - not parenthesized
-            return False
-
-    if not found_lparen:
-        return False
-
-    # Look forwards from last string for right parenthesis
-    paren_depth = 0
-    for i in range(last_idx + 1, len(file_tokens)):
-        t = file_tokens[i]
-        if t.type == tokenize.OP:
-            if t.string == "(":
-                paren_depth += 1
-            elif t.string == ")":
-                if paren_depth > 0:
-                    paren_depth -= 1
-                else:
-                    return True
-            elif t.string == ",":
-                # Hit a comma before finding closing paren - not parenthesized
-                return False
-        elif t.type in _SIGNIFICANT_TOKEN_TYPES:
-            # Hit another significant token - not parenthesized
-            return False
-
-    return False
+    """Check if a string concatenation is directly wrapped in parentheses."""
+    before = _next_significant(file_tokens, range(first_idx - 1, -1, -1))
+    after = _next_significant(file_tokens, range(last_idx + 1, len(file_tokens)))
+    return (
+        before is not None
+        and before.exact_type == tokenize.LPAR
+        and after is not None
+        and after.exact_type == tokenize.RPAR
+    )
 
 
 @dataclass(frozen=True)

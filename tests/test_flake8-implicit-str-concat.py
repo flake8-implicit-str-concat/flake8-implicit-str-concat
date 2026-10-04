@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import io
+import sys
 import tokenize
 from pathlib import Path
 
@@ -47,15 +48,22 @@ def test_isc(source_code: str, expected: str) -> None:
     assert expected in results[0][2]
 
 
+@pytest.mark.skipif(sys.version_info < (3, 14), reason="t-strings require Python 3.14")
+def test_isc004_tstring() -> None:
+    """Implicitly concatenated t-strings in a collection trigger ISC004."""
+    results = _check('facts = [t"a" t"b"]\n')
+    assert sum("ISC004" in r[2] for r in results) == 1
+
+
 def test_isc004_fixture() -> None:
     """Test ISC004 against the fixture file (identical to Ruff's test fixture)."""
-    source_code = (FIXTURES_DIR / "ISC004.py").read_text()
+    source_code = (FIXTURES_DIR / "ISC004.py").read_text(encoding="utf-8")
     results = _check(source_code)
 
     isc004_results = [r for r in results if "ISC004" in r[2]]
 
     # Should find exactly these violations at these lines
-    expected_lines = [4, 11, 18, 30, 36, 42]
+    expected_lines = [4, 11, 18, 25, 34, 46, 52, 58, 101, 125]
     actual_lines = sorted(r[0] for r in isc004_results)
 
     assert (
